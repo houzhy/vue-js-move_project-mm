@@ -8,7 +8,7 @@
                 </router-link>
                 <div class="hot_swtich">
                     <router-link tag="div" to="/movie/nowPlaying" class="hot_item">正在热映</router-link>
-                    <router-link tag="div" to="/movie/cominSoon" class="hot_item">即将上映</router-link>
+                    <router-link tag="div" to="/movie/comingSoon" class="hot_item">即将上映</router-link>
                 </div>
                 <router-link tag="div" to="/movie/search" class="search_entry">
                     <i class="iconfont icon-sousuo"></i>
