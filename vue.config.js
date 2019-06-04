@@ -4,6 +4,11 @@ module.exports = {
             '/api':{
                 target : 'http://39.97.33.178',
                 changeOrigin: true
+            },
+            '/sohuCity':{
+                target : 'http://pv.sohu.com',
+                changeOrigin: true,
+                pathRewrite:{"^/sohuCity":""}
             }
         },
         overlay: {
