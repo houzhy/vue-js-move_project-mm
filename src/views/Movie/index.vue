@@ -4,7 +4,7 @@
         <div id="content">
             <div class="movie_menu">
                 <router-link tag="div" to="/movie/city" class="city_name">
-                    <span>大连</span><i class="iconfont icon-lower-triangle"></i>
+                    <span>{{$store.state.city.nm}}</span><i class="iconfont icon-lower-triangle"></i>
                 </router-link>
                 <div class="hot_swtich">
                     <router-link tag="div" to="/movie/nowPlaying" class="hot_item">正在热映</router-link>
@@ -26,11 +26,57 @@
 <script>
     import Header from '@/components/Header'
     import TabBar from '@/components/TabBar'
+    import {messageBox} from '@/components/JS'
+
     export default {
         name: "Movie",
         components :{
             Header,
             TabBar
+        },
+        mounted() {
+            setTimeout(()=>{
+            this.$axios.get('/api/getLocation').then((res)=>{
+                let msg = res.data.msg;
+                if(msg === 'ok'){
+                   let nm = res.data.data.nm;
+                   let id = res.data.data.id;
+                   if(this.$store.state.city.id == id){return;}
+                   messageBox({
+                       title: '定位',
+                       content: '是否切换回: '+nm+' ?',
+                       cancel: '取消',
+                       ok: '切换定位',
+                       handleOk(){
+                           window.localStorage.setItem('nowNm',nm);
+                           window.localStorage.setItem('nowId',id);
+                           window.location.reload();
+                       }
+                   });
+                }
+            });
+                // this.$axios.get('/sohuCity/cityjson?ie=utf-8').then((res)=>{
+                //     let msg = res.statusText;
+                //     console.log(msg)
+                //     if(msg === 'OK'){
+                //         let cityData = JSON.parse(res.data.match(/=(.*);/)[1]);
+                //         console.log(cityData);
+                //     }
+                // });
+            // messageBox({
+            //     title: '定位',
+            //     content: '沈阳',
+            //     cancel: '取消',
+            //     ok: '切换定位',
+            //     handleCancel() {
+            //         console.log(1)
+            //     },
+            //     handleOk(){
+            //         console.log(2)
+            //     }
+            // })
+
+            },3000);
         }
     }
 </script>
